@@ -1,6 +1,6 @@
 {
   "name": "sdk-onboarding",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "My personal project for onboarding to the SDK team",
   "main": "app.js",
   "scripts": {},

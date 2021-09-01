@@ -26,3 +26,4 @@
 ---
 ### Version History
 - v0.0.1 (Sep 1st 2021) Created project
+- v0.0.2 (Sep 1st 2021) Added username and password authentication with ForgeRock SDK
