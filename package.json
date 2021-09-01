@@ -1,0 +1,17 @@
+{
+  "name": "sdk-onboarding",
+  "version": "0.0.1",
+  "description": "My personal project for onboarding to the SDK team",
+  "main": "app.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daveadams56/sdk-onboarding.git"
+  },
+  "author": "daveadams56",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/daveadams56/sdk-onboarding/issues"
+  },
+  "homepage": "https://github.com/daveadams56/sdk-onboarding#readme"
+}
