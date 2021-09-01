@@ -1,13 +1,15 @@
 const https = require('https');
-const http = require('http');
+const express = require('express');
 const fs = require('fs')
+const path = require('path')
 
 const options = {
     key: fs.readFileSync('certs/example.com+5-key.pem'),
     cert: fs.readFileSync('certs/example.com+5.pem')
-  };
+};
 
-const server = https.createServer(options, (req, res) => {
-    res.writeHead(200, { 'content-type': 'text/html' })
-    fs.createReadStream('index.html').pipe(res)
-  }).listen(8000);
+var app = express();
+app.use('/', express.static(path.join(__dirname, 'public')))
+
+const server = https.createServer(options, app);
+server.listen(8000);

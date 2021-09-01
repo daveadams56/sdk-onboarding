@@ -13,5 +13,8 @@
   "bugs": {
     "url": "https://github.com/daveadams56/sdk-onboarding/issues"
   },
-  "homepage": "https://github.com/daveadams56/sdk-onboarding#readme"
+  "homepage": "https://github.com/daveadams56/sdk-onboarding#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
