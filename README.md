@@ -27,4 +27,4 @@
 ### Version History
 - [v0.0.1](https://github.com/daveadams56/sdk-onboarding/commit/943c8dadafee673ced2289e26665f99eb5d3a058) (Sep 1st 2021) Created project 
 - [v0.0.2](https://github.com/daveadams56/sdk-onboarding/commit/88b73117eca66fd59333b42292021a1f456b6510) (Sep 1st 2021) Added username and password authentication with ForgeRock SDK
-- [v0.0.3] (Sep 2nd 2021) Added OAuth flow to get tokens and retrieve user info
+- [v0.0.3](https://github.com/daveadams56/sdk-onboarding/commit/74d552ca404434affd24d73b8d23e92464ba28bf) (Sep 2nd 2021) Added OAuth flow to get tokens and retrieve user info
