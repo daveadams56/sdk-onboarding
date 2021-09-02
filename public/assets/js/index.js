@@ -10,6 +10,10 @@ window.addEventListener("load", function () {
 
     document.getElementById("reset").addEventListener("click", function() {
         reset();
+    });
+
+    document.getElementById("logout").addEventListener("click", function() {
+        logout();
     }); 
 });
 
@@ -74,7 +78,7 @@ function hideElement(id) {
 }
 
 function logout() {
-    // TODO handle logout
+    forgerock.FRUser.logout().then(reset).catch(console.error);
 }
 
 function reset() {
