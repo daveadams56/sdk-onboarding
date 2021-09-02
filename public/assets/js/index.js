@@ -2,8 +2,8 @@ let target = undefined;
 
 window.addEventListener("load", function () {
     document.getElementById('login-form').addEventListener("submit", function (e) {
+        // intercept login form submission and submit for authentication using SDK
         e.preventDefault();
-        // Submit for authentication
         target = e.target;
         initialiseThenSubmit()
     });
@@ -36,6 +36,7 @@ function initialiseThenSubmit() {
 }
 
 function nextStep(step) {
+    // invoke sdk to initiate or submit authentication
     forgerock.FRAuth.next(step).then(handleStep).catch(handleFailure);
 }
 
@@ -46,7 +47,7 @@ function handleStep(step) {
     } else if (step.type === "LoginFailure") {
         handleFailure(step);
     } else {
-
+        // inject intercepted username and password
         const username = target[0].value;
         const password = target[1].value;
 
@@ -58,15 +59,67 @@ function handleStep(step) {
 }
 
 function handleFailure(step) {
+    // show failure view
     hideElement("login-form")
     hideElement("success")
     showElement("failure")
+
+    // update message
+    updateWelcome("Login failed")
 }
 
 function handleSuccess(step) {
+    // show success view
     hideElement("login-form")
     showElement("success")
     hideElement("failure")
+
+    // start oauth flow to get an access token and user info
+    getTokensAndUserInfo()
+}
+
+function getTokensAndUserInfo() {
+    // invoke oauth2.0 flow to get tokens using SDK then request user info
+    forgerock.TokenManager.getTokens({ forceRenew: true }).then(getUserInfo);
+}
+
+function getUserInfo() {
+    // request user info using SDK then display it
+    forgerock.UserManager.getCurrentUser().then(showUserInfo);
+}
+
+function showUserInfo(info) {
+    // show personalised items only if returned by userinfo
+    if (info.given_name === undefined) {
+        updateWelcome("Welcome back")
+        hideElement("givenName")
+    } else {
+        updateWelcome("Welcome, " + info.given_name);
+        updateElementValue("givenNameField", info.given_name);
+    }
+
+    if (info.family_name === undefined) {
+        hideElement("lastName")
+    } else {
+        updateElementValue("lastNameField", info.family_name);
+    }
+
+    if (info.email === undefined) {
+        hideElement("email")
+    } else {
+        updateElementValue("emailField", info.email);
+    }
+
+    if (info.sub === undefined) {
+        hideElement("userId")
+    } else {
+        updateElementValue("userIdField", info.sub);
+    }
+}
+
+function logout() {
+    // end session and reset form
+    forgerock.FRUser.logout().then(reset).catch(console.error);
 }
 
 function showElement(id) {
@@ -77,14 +130,29 @@ function hideElement(id) {
     document.getElementById(id).style = "height: 0; width: 0; position: absolute; visibility: hidden"
 }
 
-function logout() {
-    forgerock.FRUser.logout().then(reset).catch(console.error);
+function updateElementValue(id, value) {
+    document.getElementById(id).value = value;
+}
+
+function updateWelcome(message) {
+    document.getElementById("welcome").innerHTML = message;
 }
 
 function reset() {
-    document.getElementById("username").value = ""
-    document.getElementById("password").value = ""
+    // reset login form
+    updateElementValue("username", "");
+    updateElementValue("password", "");
+
+    // show login form
     showElement("login-form")
     hideElement("success")
     hideElement("failure")
+
+    // update message
+    updateWelcome("Welcome. Please sign in")
+
+    // reset intercepted form
+    target = undefined;
 }
+
+reset()
