@@ -8,11 +8,13 @@ window.addEventListener("load", function () {
         initialiseThenSubmit()
     });
 
-    document.getElementById("reset").addEventListener("click", function() {
+    document.getElementById("reset").addEventListener("click", function(e) {
+        e.preventDefault();
         reset();
     });
 
-    document.getElementById("logout").addEventListener("click", function() {
+    document.getElementById("logout").addEventListener("click", function(e) {
+        e.preventDefault();
         logout();
     }); 
 });
