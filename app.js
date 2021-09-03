@@ -9,7 +9,7 @@ const options = {
 };
 
 var app = express();
-app.use('/', express.static(path.join(__dirname, 'public')))
+app.use('/', express.static(path.join(__dirname, 'dist')))
 
 const server = https.createServer(options, app);
 server.listen(8000);
