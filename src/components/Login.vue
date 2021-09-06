@@ -87,6 +87,29 @@
                                         @input="callback.setInputValue($event.target.value)"
                                     />
                                 </div>
+                                <div
+                                    class="form-group"
+                                    v-else-if="
+                                        callback.getType() ===
+                                        'ChoiceCallback'
+                                    "
+                                >
+                                    <label
+                                        :for="'choice' + callback.payload._id"
+                                        class="form-label mt-4"
+                                    >{{callback.getPrompt()}}</label>
+                                    <select
+                                        class="form-select"
+                                        id="'choice' + callback.payload._id"
+                                    >
+                                        <option
+                                            v-for="choice in callback.getChoices()"
+                                            v-bind:key="choice"
+                                            :selected="callback.getChoices().indexOf(choice) === callback.getDefaultChoice()"
+                                            @click="callback.setChoiceValue(choice)"
+                                        >{{choice}}</option>
+                                    </select>
+                                </div>
                             </div>
                         </form>
                     </div>
