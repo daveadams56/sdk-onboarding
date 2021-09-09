@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" v-if="ready">
         <div
             class="card mb-3"
             style="max-width: 40rem"
@@ -139,33 +139,31 @@ import { Options, Vue } from "vue-class-component";
 import {
     Config,
     FRAuth,
-    FRUser,
     FRStep,
     FRLoginSuccess,
-    FRLoginFailure,
-    TokenManager,
-    UserManager,
+    FRLoginFailure
 } from "@forgerock/javascript-sdk";
 
 @Options({
+    name: "Login",
     props: {
         message: String,
-    },
+    }
 })
 export default class Login extends Vue {
+    
     message!: String;
     title?: String;
     description?: String;
     step?: FRStep;
-    success?: FRLoginSuccess;
-    failure?: FRLoginFailure;
-    user: any;
-
+    success: boolean = false;
+    failure: boolean = false;
     submitting: boolean = false;
-    complete: boolean = false;
+    ready: boolean = false;
 
     mounted() {
         this.$nextTick(function () {
+            this.ready = true;
             this.initialiseThenSubmit();
         });
     }
@@ -206,37 +204,25 @@ export default class Login extends Vue {
             this.title = step.getHeader(); // overwrite title with page title if present
             this.description = step.getDescription();
         } else if (step instanceof FRLoginSuccess) {
-            this.success = step;
             this.handleSuccess();
         } else if (step instanceof FRLoginFailure) {
-            this.failure = step;
             this.handleFailure();
         }
     }
 
     handleSuccess(): void {
-        TokenManager.getTokens({ forceRenew: true }).then((tokens) => {
-            console.log(tokens);
-            UserManager.getCurrentUser().then((info) => {
-                this.user = info;
-                // TODO emit success event
-            });
-        });
+        this.title = "Checking your details.."
+        this.$emit("success", true);
     }
 
     handleFailure(): void {
-        this.title = this.failure?.getMessage();
-    }
-
-    logout(): void {
-        // end session and reset form
-        FRUser.logout().then(this.reset).catch(console.error);
+        this.title = "Sorry, that didn't work"
     }
 
     reset(): void {
         this.step = undefined;
-        this.success = undefined;
-        this.failure = undefined;
+        this.success = false;
+        this.failure = false;
         this.initialiseThenSubmit();
     }
 }
