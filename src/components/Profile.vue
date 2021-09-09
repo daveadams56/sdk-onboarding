@@ -1,8 +1,7 @@
 <template>
-    <div class="container" v-if="ready">
+    <div class="container row" v-if="ready">
         <div
-            class="card mb-3"
-            style="max-width: 40rem"
+            class="card mb-3 col-8 mx-auto"
         >
             <div class="card-body text-center">
 

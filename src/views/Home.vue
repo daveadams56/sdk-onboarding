@@ -1,15 +1,30 @@
 <template>
     <div v-if="ready">
-        <div
-            v-if="tokens"
-        >
+        <div v-if="tokens">
 
-            <Profile/>
-            <button
-                class="btn btn-primary"
-                id="logout"
-                @click="logout"
-            >Sign out</button>
+            <Profile />
+            
+            <div class="container row">
+                <div class="text-center col-8 mx-auto">
+                    <div class="row">
+                        <div class="col-5">
+                            <hr>
+                        </div>
+                        <div class="col-2">
+                            Finished?
+                        </div>
+                        <div class="col-5">
+                            <hr>
+                        </div>
+                    </div>
+                    <button
+                        class="btn btn-primary"
+                        id="logout"
+                        @click="logout"
+                    >Sign out</button>
+                </div>
+            </div>
+
         </div>
         <div v-else>
             <Login
@@ -24,10 +39,7 @@
 import { Options, Vue } from "vue-class-component";
 import Login from "@/components/Login.vue";
 import Profile from "@/components/Profile.vue";
-import {
-    FRUser,
-    TokenManager
-} from "@forgerock/javascript-sdk";
+import { FRUser, TokenManager } from "@forgerock/javascript-sdk";
 
 @Options({
     name: "Home",
