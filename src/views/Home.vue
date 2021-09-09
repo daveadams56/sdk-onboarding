@@ -30,6 +30,7 @@
             <Login
                 message="Welcome. Please sign in"
                 @success="loginComplete"
+                @successCentralised="centralisedLoginComplete"
             />
         </div>
     </div>
@@ -65,6 +66,20 @@ export default class Home extends Vue {
     loginComplete(success: boolean): void {
         if (success) {
             TokenManager.getTokens({ forceRenew: true }).then(() => {
+                this.tokens = true;
+            });
+        }
+    }
+
+    centralisedLoginComplete(code: string, state: string): void {
+        console.log("centralisedLoginComplete " + code + " " + state)
+        if (code && state) {
+            TokenManager.getTokens({
+                query: {
+                    code: code, // Authorization code from redirect URL
+                    state: state, // State from redirect URL
+                },
+            }).then(() => {
                 this.tokens = true;
             });
         }

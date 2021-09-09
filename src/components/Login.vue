@@ -146,7 +146,10 @@
                         <hr>
                     </div>
                 </div>
-                <button class="btn btn-secondary" @click="doCentralisedLogin">Sign in with platform</button>
+                <button
+                    class="btn btn-secondary"
+                    @click="doCentralisedLogin"
+                >Sign in with platform</button>
             </div>
         </div>
     </div>
@@ -160,7 +163,7 @@ import {
     FRStep,
     FRLoginSuccess,
     FRLoginFailure,
-    TokenManager
+    TokenManager,
 } from "@forgerock/javascript-sdk";
 
 @Options({
@@ -182,7 +185,20 @@ export default class Login extends Vue {
     mounted() {
         this.$nextTick(function () {
             this.ready = true;
-            this.initialiseThenSubmit();
+
+            let params = new URLSearchParams(window.location.search);
+            if (params.has("code") && params.has("state")) {
+                const code = params.get("code");
+                const state = params.get("state");
+
+                console.log("login mounted() code = " + code + " state = " + state)
+
+                if (code && state) {
+                    this.completeCentralisedLogin(code, state);
+                }
+            } else {
+                this.initialiseThenSubmit();
+            }
         });
     }
 
@@ -203,6 +219,22 @@ export default class Login extends Vue {
             forceRenew: false, // Immediately return stored tokens, if they exist
             login: "redirect", // Redirect to AM or the web app that handles authentication
         });
+    }
+
+    completeCentralisedLogin(code: string, state: string): void {
+        Config.set({
+            clientId: "sdk-onboarding-centralised", // e.g. 'ForgeRockSDKClient'
+            redirectUri: "https://app.example.com:8000", // e.g. 'https://sdkapp.example.com:8443/_callback'
+            scope: "openid profile", // e.g. 'openid profile me.read'
+            serverConfig: {
+                baseUrl: "https://openam-david-sdk.forgeblocks.com/am", // e.g. 'https://openam.example.com:9443/openam/'
+                timeout: 1000, // 90000 or less
+            },
+            realmPath: "alpha", // e.g. 'root'
+            tree: "Login", // e.g. 'Login'
+        });
+
+        this.$emit("successCentralised", code, state);
     }
 
     initialiseThenSubmit(): void {
