@@ -146,7 +146,7 @@
                         <hr>
                     </div>
                 </div>
-                <button class="btn btn-secondary">Sign in with platform</button>
+                <button class="btn btn-secondary" @click="doCentralisedLogin">Sign in with platform</button>
             </div>
         </div>
     </div>
@@ -160,6 +160,7 @@ import {
     FRStep,
     FRLoginSuccess,
     FRLoginFailure,
+    TokenManager
 } from "@forgerock/javascript-sdk";
 
 @Options({
@@ -182,6 +183,25 @@ export default class Login extends Vue {
         this.$nextTick(function () {
             this.ready = true;
             this.initialiseThenSubmit();
+        });
+    }
+
+    doCentralisedLogin(): void {
+        Config.set({
+            clientId: "sdk-onboarding-centralised", // e.g. 'ForgeRockSDKClient'
+            redirectUri: "https://app.example.com:8000", // e.g. 'https://sdkapp.example.com:8443/_callback'
+            scope: "openid profile", // e.g. 'openid profile me.read'
+            serverConfig: {
+                baseUrl: "https://openam-david-sdk.forgeblocks.com/am", // e.g. 'https://openam.example.com:9443/openam/'
+                timeout: 1000, // 90000 or less
+            },
+            realmPath: "alpha", // e.g. 'root'
+            tree: "Login", // e.g. 'Login'
+        });
+
+        TokenManager.getTokens({
+            forceRenew: false, // Immediately return stored tokens, if they exist
+            login: "redirect", // Redirect to AM or the web app that handles authentication
         });
     }
 
