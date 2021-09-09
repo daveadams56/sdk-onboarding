@@ -29,4 +29,4 @@
 - [v0.0.2](https://github.com/daveadams56/sdk-onboarding/commit/88b73117eca66fd59333b42292021a1f456b6510) (Sep 1st 2021) Added username and password authentication with ForgeRock SDK
 - [v0.0.3](https://github.com/daveadams56/sdk-onboarding/commit/74d552ca404434affd24d73b8d23e92464ba28bf) (Sep 2nd 2021) Added OAuth flow to get tokens and retrieve user info
 - [v0.0.4](https://github.com/daveadams56/sdk-onboarding/commit/03138e39010239230adb8ecaaaa4c7bbb66ffdd3) (Sep 3rd 2021) Basic SDK flows working
-- [v0.0.5]() (Sep 9th 2021) Feature parity using Vue.js 3 + typescript
+- [v0.0.5](https://github.com/daveadams56/sdk-onboarding/commit/dd0384844ca0e1722e703a0de059ee7ee385e4d4) (Sep 9th 2021) Feature parity using Vue.js 3 + typescript
