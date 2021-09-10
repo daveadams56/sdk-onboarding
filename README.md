@@ -32,3 +32,4 @@
 - [v0.0.5](https://github.com/daveadams56/sdk-onboarding/commit/dd0384844ca0e1722e703a0de059ee7ee385e4d4) (Sep 9th 2021) Feature parity using Vue.js 3 + typescript
 - [v0.0.6](https://github.com/daveadams56/sdk-onboarding/commit/30b0a68afc9e0af2ecbd1df259584fbbf9659d59) (Sep 9th 2021) Enabled centralised login using ID Cloud
 - [v0.0.7](https://github.com/daveadams56/sdk-onboarding/commit/99a3514ecdfbdde4b910e8d1205bf3ccafdc0ae2) (Sep 9th 2021) Completed centralised login flow using ID Cloud
+- [v0.0.8](https://github.com/daveadams56/sdk-onboarding/commit/cc3faa6c1b9123c4f4bc0beb6e8896f8082c80df) (Sep 10th 2021) Fixed bugs on logout after centralised flow and on failure
