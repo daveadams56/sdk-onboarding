@@ -62,6 +62,9 @@ export default class Home extends Vue {
     }
 
     logoutComplete(): void {
+        // important to remove query params from centralised login oauth flow
+        window.history.pushState({}, document.title, "/");
+
         this.reset();
     }
 

@@ -273,8 +273,10 @@ export default class Login extends Vue {
             this.title = step.getHeader(); // overwrite title with page title if present
             this.description = step.getDescription();
         } else if (step instanceof FRLoginSuccess) {
+            this.success = true;
             this.handleSuccess();
         } else if (step instanceof FRLoginFailure) {
+            this.failure = true;
             this.handleFailure();
         }
     }
