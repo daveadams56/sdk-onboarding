@@ -7,6 +7,7 @@
 ### Pre-requisites
 1. Node.js (12+)
 2. A tool for making locally-trusted certificates such as mkcert: https://github.com/FiloSottile/mkcert#installation
+3. Vue CLI (3)
 ---
 ### Installation
 1. Clone the repo\
@@ -19,9 +20,12 @@
 `cd /path/to/project/certs`\
 `mkcert -install`\
 `mkcert example.com "*.example.com" example.test localhost 127.0.0.1 ::1`
-5. Run the app\
+5. Run the app in "hot-reload" mode for development
+`npm run serve`
+6. Build and run the app in production mode for testing
+`npm run build`
 `node app.js`
-6. Access the app in a browser at https://app.example.com:8000/
+7. Access the app in a browser at https://app.example.com:8000/
 
 ---
 ### Version History
