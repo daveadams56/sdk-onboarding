@@ -1,100 +1,103 @@
 <template>
-    <div class="container row" v-if="ready">
-        <div
-            class="card mb-3 col-8 mx-auto"
-        >
-            <div class="card-body text-center">
+    <div
+        class="container"
+        v-if="ready"
+    >
+        <div class="row">
+            <div class="card mb-3 col-8 mx-auto">
+                <div class="card-body text-center">
 
-                <!-- User Info View -->
-                <form
-                    class="m-5"
-                    style="max-width: 40rem"
-                    v-if="user !== {}"
-                >
-                    <h3>Your Profile</h3>
-                    <div
-                        class="form-group"
-                        id="userId"
-                        v-if="user.sub"
+                    <!-- User Info View -->
+                    <form
+                        class="m-5"
+                        style="max-width: 40rem"
+                        v-if="user !== {}"
                     >
-                        <label
-                            for="userIdField"
-                            class="col-sm-2 col-form-label"
-                        >User ID</label>
-                        <div class="col-sm-10">
-                            <input
-                                type="text"
-                                readonly=""
-                                class="form-control-plaintext"
-                                id="userIdField"
-                                v-model="user.sub"
-                            >
+                        <h3>Your Profile</h3>
+                        <div
+                            class="form-group"
+                            id="userId"
+                            v-if="user.sub"
+                        >
+                            <label
+                                for="userIdField"
+                                class="col-sm-2 col-form-label"
+                            >User ID</label>
+                            <div class="col-sm-10">
+                                <input
+                                    type="text"
+                                    readonly=""
+                                    class="form-control-plaintext"
+                                    id="userIdField"
+                                    v-model="user.sub"
+                                >
+                            </div>
                         </div>
-                    </div>
-                    <div
-                        class="form-group"
-                        id="email"
-                        v-if="user.mail"
-                    >
-                        <label
-                            for="emailField"
-                            class="col-sm-2 col-form-label"
-                        >Email Address</label>
-                        <div class="col-sm-10">
-                            <input
-                                type="text"
-                                readonly=""
-                                class="form-control-plaintext"
-                                id="emailField"
-                                v-model="user.mail"
-                            >
+                        <div
+                            class="form-group"
+                            id="email"
+                            v-if="user.mail"
+                        >
+                            <label
+                                for="emailField"
+                                class="col-sm-2 col-form-label"
+                            >Email Address</label>
+                            <div class="col-sm-10">
+                                <input
+                                    type="text"
+                                    readonly=""
+                                    class="form-control-plaintext"
+                                    id="emailField"
+                                    v-model="user.mail"
+                                >
+                            </div>
                         </div>
-                    </div>
-                    <div
-                        class="form-group"
-                        id="givenName"
-                        v-if="user.given_name"
-                    >
-                        <label
-                            for="givenNameField"
-                            class="col-sm-2 col-form-label"
-                        >Given Name</label>
-                        <div class="col-sm-10">
-                            <input
-                                type="text"
-                                readonly=""
-                                class="form-control-plaintext"
-                                id="givenNameField"
-                                v-model="user.given_name"
-                            >
+                        <div
+                            class="form-group"
+                            id="givenName"
+                            v-if="user.given_name"
+                        >
+                            <label
+                                for="givenNameField"
+                                class="col-sm-2 col-form-label"
+                            >Given Name</label>
+                            <div class="col-sm-10">
+                                <input
+                                    type="text"
+                                    readonly=""
+                                    class="form-control-plaintext"
+                                    id="givenNameField"
+                                    v-model="user.given_name"
+                                >
+                            </div>
                         </div>
-                    </div>
-                    <div
-                        class="form-group"
-                        id="lastName"
-                        v-if="user.family_name"
-                    >
-                        <label
-                            for="lastNameField"
-                            class="col-sm-2 col-form-label"
-                        >Last Name</label>
-                        <div class="col-sm-10">
-                            <input
-                                type="text"
-                                readonly=""
-                                class="form-control-plaintext"
-                                id="lastNameField"
-                                v-model="user.family_name"
-                            >
+                        <div
+                            class="form-group"
+                            id="lastName"
+                            v-if="user.family_name"
+                        >
+                            <label
+                                for="lastNameField"
+                                class="col-sm-2 col-form-label"
+                            >Last Name</label>
+                            <div class="col-sm-10">
+                                <input
+                                    type="text"
+                                    readonly=""
+                                    class="form-control-plaintext"
+                                    id="lastNameField"
+                                    v-model="user.family_name"
+                                >
+                            </div>
                         </div>
-                    </div>
-                </form>
-                <form v-else>
-                    <div
-                        class="spinner-border"
-                        role="status"
-                    ></div>
-                </form>
+                    </form>
+                    <form v-else>
+                        <div
+                            class="spinner-border"
+                            role="status"
+                        ></div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -102,13 +105,11 @@
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import {
-    UserManager
-} from "@forgerock/javascript-sdk";
+import { UserManager } from "@forgerock/javascript-sdk";
 
 @Options({
     name: "Profile",
-    props: {}
+    props: {},
 })
 export default class Profile extends Vue {
     user: Object = {};
@@ -117,7 +118,7 @@ export default class Profile extends Vue {
     mounted() {
         this.$nextTick(function () {
             this.ready = true;
-            this.getUserInfo()
+            this.getUserInfo();
         });
     }
 

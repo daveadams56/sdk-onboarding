@@ -1,31 +1,31 @@
 <template>
-    <div class="container row">
-        <div class="text-center col-8 mx-auto">
-            <div class="row">
-                <div class="col-5">
-                    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="text-center col-8 mx-auto">
+                <div class="row">
+                    <div class="col-5">
+                        <hr>
+                    </div>
+                    <div class="col-2">
+                        Finished?
+                    </div>
+                    <div class="col-5">
+                        <hr>
+                    </div>
                 </div>
-                <div class="col-2">
-                    Finished?
-                </div>
-                <div class="col-5">
-                    <hr>
-                </div>
+                <button
+                    class="btn btn-primary"
+                    id="logout"
+                    @click="logout"
+                >Sign out</button>
             </div>
-            <button
-                class="btn btn-primary"
-                id="logout"
-                @click="logout"
-            >Sign out</button>
         </div>
     </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import {
-    FRUser
-} from "@forgerock/javascript-sdk";
+import { FRUser } from "@forgerock/javascript-sdk";
 
 @Options({
     name: "Logout",
