@@ -1,30 +1,8 @@
 <template>
     <div v-if="ready">
         <div v-if="tokens">
-
             <Profile />
-            
-            <div class="container row">
-                <div class="text-center col-8 mx-auto">
-                    <div class="row">
-                        <div class="col-5">
-                            <hr>
-                        </div>
-                        <div class="col-2">
-                            Finished?
-                        </div>
-                        <div class="col-5">
-                            <hr>
-                        </div>
-                    </div>
-                    <button
-                        class="btn btn-primary"
-                        id="logout"
-                        @click="logout"
-                    >Sign out</button>
-                </div>
-            </div>
-
+            <Logout @success="logoutComplete"/>
         </div>
         <div v-else>
             <Login
@@ -39,14 +17,16 @@
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 import Login from "@/components/Login.vue";
+import Logout from "@/components/Logout.vue";
 import Profile from "@/components/Profile.vue";
-import { FRUser, TokenManager } from "@forgerock/javascript-sdk";
+import { TokenManager } from "@forgerock/javascript-sdk";
 
 @Options({
     name: "Home",
     components: {
         Login,
-        Profile,
+        Logout,
+        Profile
     },
 })
 export default class Home extends Vue {
@@ -57,10 +37,6 @@ export default class Home extends Vue {
         this.$nextTick(function () {
             this.ready = true;
         });
-    }
-
-    logout(): void {
-        FRUser.logout().then(this.reset).catch(console.error);
     }
 
     loginComplete(success: boolean): void {
@@ -83,6 +59,10 @@ export default class Home extends Vue {
                 this.tokens = true;
             });
         }
+    }
+
+    logoutComplete(): void {
+        this.reset();
     }
 
     reset(): void {
