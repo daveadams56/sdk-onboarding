@@ -15,6 +15,7 @@
                     <div
                         class="form-group"
                         id="userId"
+                        v-if="user.sub"
                     >
                         <label
                             for="userIdField"
@@ -33,6 +34,7 @@
                     <div
                         class="form-group"
                         id="email"
+                        v-if="user.mail"
                     >
                         <label
                             for="emailField"
@@ -51,6 +53,7 @@
                     <div
                         class="form-group"
                         id="givenName"
+                        v-if="user.given_name"
                     >
                         <label
                             for="givenNameField"
@@ -69,6 +72,7 @@
                     <div
                         class="form-group"
                         id="lastName"
+                        v-if="user.family_name"
                     >
                         <label
                             for="lastNameField"
